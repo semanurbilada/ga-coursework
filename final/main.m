@@ -115,33 +115,63 @@ fprintf('\n========================================\n');
 % Target:
 % 1. Minimize total distance (energy saving)
 % 2. Nodes should not be more than 40 units apart (connectivity)
-function score = fitness_network(x)
-    % Convert coordinates to 2D shape: [x1 y1; x2 y2; ...]
-    coords = reshape(x, [], 2);
-    n = size(coords, 1);     % Node count
-    
-    totalDistance = 0;       % Total distance (minimize)
-    connectivityPenalty = 0;
-    
-    % Calculate the distance between all node pairs
-    for i = 1:n
-        for j = i+1:n
-            % Euclidean distance: sqrt((x2-x1)² + (y2-y1)²)
-            distance = norm(coords(i,:) - coords(j,:));
-            
-            % Add to total distance (to minimize)
-            totalDistance = totalDistance + distance;
-            
-            % Connectivity constraint: Penalty if it's too far
-            if distance > 40
-                % A penalty of 100 for each unit exceeding 40 units
-                connectivityPenalty = connectivityPenalty + 100;
-            end
+function score = fitness_network_final(x)
+
+coords = reshape(x, [], 2);
+n = size(coords,1);
+
+% Node properties: [traffic, jitter_weight]
+nodeProps = [
+    5 1.2;
+    3 1.0;
+    4 1.1;
+    2 0.8;
+    1 0.6
+];
+
+mandatoryLinks = [
+    1 2;
+    1 3;
+    1 4;
+    1 5
+];
+
+maxDist = 40;
+minSeparation = 5;
+
+totalCost = 0;
+connectivityPenalty = 0;
+overlapPenalty = 0;
+
+for i = 1:n
+    for j = i+1:n
+        d = norm(coords(i,:) - coords(j,:));
+
+        % Traffic-weighted distance
+        trafficWeight = nodeProps(i,1) + nodeProps(j,1);
+        totalCost = totalCost + trafficWeight * d;
+
+        % Too far penalty
+        if d > maxDist
+            connectivityPenalty = connectivityPenalty + 200;
+        end
+
+        % Overlap prevention
+        if d < minSeparation
+            overlapPenalty = overlapPenalty + 1000;
         end
     end
-    
-    % Total fitness score
-    score = totalDistance + connectivityPenalty;
-    % Low score = good network
-    % High score = bad network (too far away or penalized)
+end
+
+% Mandatory routing constraint
+for k = 1:size(mandatoryLinks,1)
+    i = mandatoryLinks(k,1);
+    j = mandatoryLinks(k,2);
+    d = norm(coords(i,:) - coords(j,:));
+    if d > maxDist
+        connectivityPenalty = connectivityPenalty + 500;
+    end
+end
+
+score = totalCost + connectivityPenalty + overlapPenalty;
 end
