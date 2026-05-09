@@ -34,4 +34,7 @@ pop1(indx(1), :) = bestchr;
 
 bstscore = srtscore(end);
 
+fprintf('Best fitness value = %.4f\n', bstscore);
+fprintf('Best x = %.4f, Best y = %.4f\n', prmbest(1), prmbest(2));
+
 end
