@@ -4,6 +4,12 @@
 % Constraint: Computers should not be more than 40 units apart
 clc; clear; close all;
 
+outputDir = '../outputs';
+
+if ~exist(outputDir, 'dir')
+    mkdir(outputDir);
+end
+
 %% Parameters
 nNodes = 5;                 % Node count (computer)
 nvars = nNodes * 2;         % Variable count (x1,y1,x2,y2,...)
@@ -21,10 +27,17 @@ options = gaoptimset(...
 fitnessFcn = @fitness_network;
 [x_best, fval] = ga(fitnessFcn, nvars, [], [], [], [], lb, ub, [], options);
 
+figure(1);
+title('GA Convergence Plot - Best Fitness per Generation');
+
+exportgraphics(gcf, ...
+    fullfile(outputDir, 'convergence_plot.png'), ...
+    'Resolution', 300);
+
 %% Visualize results
 coords = reshape(x_best, [], 2);
 
-figure('Position', [100, 100, 1200, 500]);
+fig2 = figure('Position', [100, 100, 1200, 500]);
 
 % Graph 1: Network Tolopogy
 subplot(1, 2, 1);
@@ -68,6 +81,10 @@ xlabel('Distance (unit)');
 ylabel('Frequency');
 hold on;
 xline(40, 'r--', 'LineWidth', 2, 'Label', 'Max Connectivity (40)');
+
+exportgraphics(fig2, ...
+    fullfile(outputDir, 'network_topology_results.png'), ...
+    'Resolution', 300);
 
 %% Print results
 fprintf('\n========================================\n');
