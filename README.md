@@ -83,12 +83,18 @@ ga-coursework/
 
 ---
 
-## 📈 Outputs
+## 📈 Example Outputs
+
+### ✅ Optimized Network Topology (20 Nodes)
+![Network Topology](outputs/network_topology_20nodes.png)
+
+### ✅ GA Convergence Behavior
+![Convergence Plot](outputs/convergence_plot_20nodes.png)
 
 The project generates:
-- GA convergence plots
-- Optimized network topology graphs
-- Distance distribution histograms
+- GA convergence plots  
+- Optimized network topology graphs  
+- Distance distribution histograms  
 
 All outputs are available in the **[/outputs](https://github.com/semanurbilada/ga-coursework/tree/main/outputs)** directory.
 
@@ -133,5 +139,3 @@ If you use ga-coursework in your research, please cite:
 ## Licence
 
 MIT License - see the [LICENSE](https://github.com/semanurbilada/ga-coursework?tab=MIT-1-ov-file) file for details.
-
----
