@@ -12,7 +12,7 @@ if ~exist(outputDir, 'dir')
 end
 
 %% Problem Parameters
-nNodes = 10;                 % Number of network nodes
+nNodes = 20;                 % Number of network nodes
 nvars = nNodes * 2;         % Total variables: [x1 y1 x2 y2 ...]
 lb = zeros(1, nvars);       % Lower bounds (0)
 ub = ones(1, nvars) * 100;  % Upper bounds (100)
@@ -32,8 +32,10 @@ fitnessFcn = @fitness_network;
 %% Save convergence plot (fitness vs generations)
 figure(1);
 title('GA Convergence Plot - Best Fitness per Generation');
+
+fileName = sprintf('convergence_plot_%dnodes.png', nNodes);
 exportgraphics(gcf, ...
-    fullfile(outputDir, 'convergence_plot.png'), ...
+    fullfile(outputDir, fileName), ...
     'Resolution', 300);
 
 %% Visualize results and print outputs
