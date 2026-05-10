@@ -1,6 +1,6 @@
-# 🚀 GA Coursework – Genetic Algorithms Projects (MATLAB)
+# GA Coursework – Genetic Algorithms Projects (MATLAB)
 
-Coursework for the **Genetic Algorithms** course, including both **midterm** and **final** projects implemented in MATLAB.
+Coursework for the **Genetic Algorithms** course including both **midterm** and **final** projects implemented in MATLAB.
 
 This repository demonstrates how genetic algorithms can be applied to:
 - Solution representation (Gray Code)
@@ -29,7 +29,7 @@ Key features:
 - Traffic-aware fitness function
 - Connectivity and node separation constraints
 - Scalable design (10, 20, 30 nodes)
-- Visualization of convergence, topology, and distance distribution
+- Visualization of convergence, topology and distance distribution
 
 ---
 
@@ -90,7 +90,7 @@ The project generates:
 - Optimized network topology graphs
 - Distance distribution histograms
 
-All outputs are available in the `/outputs` directory.
+All outputs are available in the **[/outputs](https://github.com/semanurbilada/ga-coursework/tree/main/outputs)** directory.
 
 ---
 
@@ -104,11 +104,34 @@ All outputs are available in the `/outputs` directory.
 
 ## 📎 Reports
 
-- Midterm Report → `/docs/GA-midterm_report.pdf`
-- Final Report → `/docs/GA-final_report.pdf`
+- Midterm Report → **[/docs/GA-midterm_report.pdf](https://github.com/semanurbilada/ga-coursework/blob/main/docs/GA-midterm_report.pdf)**
+- Final Report → **[/docs/GA-final_report.pdf](https://github.com/semanurbilada/ga-coursework/blob/main/docs/GA-final_report.pdf)**
 
 ---
 
 ## ✅ Summary
 
 This repository covers the full progression from fundamental genetic algorithm concepts to real-world network optimization problems, demonstrating both the effectiveness and limitations of GA-based approaches.
+
+---
+
+## Citation
+
+If you use ga-coursework in your research, please cite:
+
+```bibtex
+@software{ga-coursework2026,
+  title   = {GA Coursework: Genetic Algorithm Concepts and Network Topology Optimization in MATLAB},
+  author  = {Semanur Bilada},
+  year    = {2026},
+  url     = {https://github.com/semanurbilada/ga-coursework}
+}
+```
+
+---
+
+## Licence
+
+MIT License - see the [LICENSE](https://github.com/semanurbilada/ga-coursework?tab=MIT-1-ov-file) file for details.
+
+---
