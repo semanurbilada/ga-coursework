@@ -12,7 +12,7 @@ if ~exist(outputDir, 'dir')
 end
 
 %% Problem Parameters
-nNodes = 20;                 % Number of network nodes
+nNodes = 30;                 % Number of network nodes
 nvars = nNodes * 2;         % Total variables: [x1 y1 x2 y2 ...]
 lb = zeros(1, nvars);       % Lower bounds (0)
 ub = ones(1, nvars) * 100;  % Upper bounds (100)
