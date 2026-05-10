@@ -1,5 +1,5 @@
 %% Network Topology Optimization using Genetic Algorithm
-% Goal: Optimize the physical placement of 5 computers (nodes) in a 2D space using a genetic algorithm.
+% Goal: Optimize the physical placement of computers (nodes) in a 2D space using a genetic algorithm.
 % Decision variables: x and y coordinates of each node
 % Overall idea: GA searches for coordinate configurations that minimize communication cost while satisfying network constraints.
 clc; clear; close all;
@@ -12,7 +12,7 @@ if ~exist(outputDir, 'dir')
 end
 
 %% Problem Parameters
-nNodes = 5;                 % Number of network nodes
+nNodes = 10;                 % Number of network nodes
 nvars = nNodes * 2;         % Total variables: [x1 y1 x2 y2 ...]
 lb = zeros(1, nvars);       % Lower bounds (0)
 ub = ones(1, nvars) * 100;  % Upper bounds (100)

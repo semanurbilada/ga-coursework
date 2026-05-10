@@ -13,23 +13,21 @@ coords = reshape(x, [], 2);
 n = size(coords,1);
 
 %% Lookup Table (Node properties)
-% Column 1: traffic load (importance of node)
-% Column 2: jitter sensitivity (not directly used but included for realism)
-nodeProps = [
-    5 1.2;
-    3 1.0;
-    4 1.1;
-    2 0.8;
-    1 0.6
+% Node properties: [traffic, jitter_weight]
+% Automatically generated based on number of nodes
+nodeProps = [ ...
+    randi([1 5], n, 1), ... % Traffic, importance of node (1–5)
+    0.5 + rand(n,1)         % Jitter weight (0.5–1.5)
 ];
 
 %% Mandatory routing links (must remain connected)
-mandatoryLinks = [
-    1 2;
-    1 3;
-    1 4;
-    1 5
-];
+% Node 1 acts as a central gateway
+mandatoryLinks = [(1*ones(n-1,1)) (2:n)'];
+
+% Sanity check (optional)
+if size(nodeProps,1) ~= n
+    error('nodeProps size must match number of nodes');
+end
 
 %% Distance constraints
 maxDist = 40;        % Maximum allowed communication distance
