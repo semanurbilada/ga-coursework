@@ -1,4 +1,4 @@
-%% Network Topology Optimization using Genetic Algorithm
+%% Computer Network Optimization using Genetic Algorithm
 % Goal: Optimize the physical placement of computers (nodes) in a 2D space using a genetic algorithm.
 % Decision variables: x and y coordinates of each node
 % Overall idea: GA searches for coordinate configurations that minimize communication cost while satisfying network constraints.
@@ -12,10 +12,9 @@ if ~exist(outputDir, 'dir')
 end
 
 %% Problem Parameters
-nNodes = 30;                 % Number of network nodes
-nvars = nNodes * 2;         % Total variables: [x1 y1 x2 y2 ...]
-lb = zeros(1, nvars);       % Lower bounds (0)
-ub = ones(1, nvars) * 100;  % Upper bounds (100)
+nNodes = 20;                % Number of network nodes
+routeLength = 5;            % max nodes in route
+nvars = routeLength;        % decision variables = route nodes
 
 %% Genetic Algorithm Configuration
 options = gaoptimset(...
@@ -26,8 +25,11 @@ options = gaoptimset(...
 
 %% Run Genetic Algorithm
 % Calls custom fitness function to evaluate solutions
-fitnessFcn = @fitness_network;
-[x_best, fval] = ga(fitnessFcn, nvars, [], [], [], [], lb, ub, [], options);
+coords = rand(nNodes, 2) * 100;   % fixed node positions
+
+fitnessFcn = @(x) fitness_routing(x, coords);
+[x_best, fval] = ga(fitnessFcn, nvars, [], [], [], [], ...
+    ones(1,nvars), nNodes*ones(1,nvars), [], options);
 
 %% Save convergence plot (fitness vs generations)
 figure(1);
@@ -39,4 +41,4 @@ exportgraphics(gcf, ...
     'Resolution', 300);
 
 %% Visualize results and print outputs
-visualize_results(x_best, fval, nNodes, outputDir);
+visualize_results(x_best, fval, nNodes, outputDir, coords);

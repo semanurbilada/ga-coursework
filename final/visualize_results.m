@@ -1,96 +1,36 @@
-function visualize_results(x_best, fval, nNodes, outputDir)
+function visualize_results(x_best, fval, nNodes, outputDir, coords)
 
-%% Convert optimized solution to coordinates
-coords = reshape(x_best, [], 2);
+coords = rand(nNodes, 2) * 100;  % same coords should be used!
 
-%% Create figure window
-fig = figure('Position', [100, 100, 1200, 500]);
+route = round(x_best);
+route(1) = 1;
+route(end) = 6;
 
-%% Graph 1: Optimized Network Topology
-subplot(1, 2, 1);
-
-% Plot node positions
-scatter(coords(:,1), coords(:,2), 200, 'filled', 'MarkerFaceColor', 'b');
+figure;
+scatter(coords(:,1), coords(:,2), 200, 'filled');
 hold on;
 
-% Label nodes
+% node labels
 for i = 1:nNodes
-    text(coords(i,1)+2, coords(i,2)+2, ...
-        ['Node ' num2str(i)], 'FontSize', 10);
+    text(coords(i,1)+2, coords(i,2)+2, ['Node ' num2str(i)]);
 end
 
-title('Optimized Network Topology', 'FontSize', 12, 'FontWeight', 'bold');
-xlabel('X Coordinate');
-ylabel('Y Coordinate');
+% draw route
+for i = 1:length(route)-1
+    plot([coords(route(i),1), coords(route(i+1),1)], ...
+         [coords(route(i),2), coords(route(i+1),2)], ...
+         'r-', 'LineWidth', 2);
+end
+
+title('Routing Optimization (GA)');
 grid on;
-axis([0 100 0 100]);
 
-% Draw connections between nodes within range
-for i = 1:nNodes
-    for j = i+1:nNodes
-        d = norm(coords(i,:) - coords(j,:));
+% save
+fileName = sprintf('routing_%dnodes.png', nNodes);
+exportgraphics(gcf, fullfile(outputDir, fileName), 'Resolution', 300);
 
-        if d <= 40 % Only valid communication links
-            plot([coords(i,1), coords(j,1)], ...
-                 [coords(i,2), coords(j,2)], ...
-                 'k--', 'LineWidth', 1.5);
-        end
-    end
-end
+fprintf('\nOptimal Route:\n');
+disp(route);
+fprintf('Total Cost: %.2f\n', fval);
 
-%% Graph 2: Distance Distribution
-subplot(1, 2, 2);
-
-distances = [];
-
-% Compute all pairwise distances
-for i = 1:nNodes
-    for j = i+1:nNodes
-        distances = [distances, norm(coords(i,:) - coords(j,:))];
-    end
-end
-
-% Plot histogram of distances
-histogram(distances, 10, 'FaceColor', 'cyan');
-title('Distance Distribution', 'FontSize', 12, 'FontWeight', 'bold');
-xlabel('Distance (unit)');
-ylabel('Frequency');
-hold on;
-
-% Show connectivity threshold
-xline(40, 'r--', 'LineWidth', 2, ...
-    'Label', 'Max Connectivity (40)');
-
-% Save figure
-fileName = sprintf('network_topology_%dnodes.png', nNodes);
-exportgraphics(fig, ...
-    fullfile(outputDir, fileName), ...
-    'Resolution', 300);
-
-%% Print results to command window
-fprintf('\n========================================\n');
-fprintf('NETWORK TOPOLOGY OPTIMIZATION\n');
-fprintf('========================================\n\n');
-
-fprintf('Optimal Coordinates:\n');
-for i = 1:nNodes
-    fprintf('Node %d: (%.2f, %.2f)\n', ...
-        i, coords(i,1), coords(i,2));
-end
-
-fprintf('\nDistance Summary:\n');
-fprintf('Total Distance: %.2f\n', sum(distances));
-fprintf('Average Distance: %.2f\n', mean(distances));
-fprintf('Min Distance: %.2f\n', min(distances));
-fprintf('Max Distance: %.2f\n', max(distances));
-
-fprintf('\nFitness Value (Best): %.2f\n', fval);
-
-% Count connections exceeding threshold
-fprintf('Connectivity Penalty: ');
-penalty_count = sum(distances > 40);
-fprintf('%d (40 units and above %d connection)\n', ...
-        penalty_count*100, penalty_count);
-
-fprintf('\n========================================\n');
 end
