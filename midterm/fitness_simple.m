@@ -1,13 +1,47 @@
-%% Simple fitness function for midterm project (clean version of fitnesscalc1.m)
+%% Simple Fitness Function for midterm project (clean version of fitnesscalc1.m)
 % Objective: maximize f(x,y) = exp(-(x^2 + y^2))
-pop = genhav(30, 2, 8);
+clc; clear;
+addpath('../lecture-codes')
 
-[paramvalue, ~] = createchrm(pop, 2, 8);
+%% GA Parameters
+pop = genhav(30, 2, 8);   % initial population
+maxGen = 200;             % number of generations
+mutationRate = 0.02;
 
-genvaluen = gendeg(paramvalue, [-5 -5], [5 5], 8);
+%% Main GA Loop
+for epoch = 1:maxGen
+    % Decode chromosome → real values
+    [paramvalue, ~] = createchrm(pop, 2, 8);
+    genvaluen = gendeg(paramvalue, [-5 -5], [5 5], 8);
 
-[bstscore, score, bestchr, prmbest, pop1] = fitnesscalc_simple(genvaluen, pop);
+    % Fitness evaluation
+    [bstscore, score, bestchr, prmbest, pop] = fitnesscalc_simple(genvaluen, pop);
 
+    % Store best fitness
+    bestFitness(epoch) = bstscore;
+
+    % GA operators
+    pop1 = crossover(pop, bestchr);
+    pop2 = mutation1(pop1, bestchr, mutationRate);
+
+    % Update population
+    pop = pop2;
+end
+
+%% Final result
+fprintf('\nFINAL RESULT:\n');
+fprintf('Best fitness value = %.4f\n', bstscore);
+fprintf('Best x = %.4f, Best y = %.4f\n', prmbest(1), prmbest(2));
+
+%% Plot convergence
+figure;
+plot(bestFitness, 'LineWidth', 2);
+xlabel('Generation');
+ylabel('Best Fitness');
+title('GA Convergence');
+grid on;
+
+%% Fitness Function
 function [bstscore, score, bestchr, prmbest, pop1] = fitnesscalc_simple(genvaluen, pop)
 
 [r, ~] = size(genvaluen);
@@ -21,20 +55,16 @@ for k = 1:r
     score(k) = exp(-(x^2 + y^2));
 end
 
-% Sort fitness values (ascending)
+% Sort fitness values
 [srtscore, indx] = sort(score);
 
-% Best individual (maximum fitness)
+% Best individual
 bestchr = pop(indx(end), :);
 prmbest = genvaluen(indx(end), :);
 
-% Elitism: replace worst individual with best
+% Elitism: replace worst with best
 pop1 = pop;
 pop1(indx(1), :) = bestchr;
 
 bstscore = srtscore(end);
-
-fprintf('Best fitness value = %.4f\n', bstscore);
-fprintf('Best x = %.4f, Best y = %.4f\n', prmbest(1), prmbest(2));
-
 end
