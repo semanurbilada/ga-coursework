@@ -1,13 +1,20 @@
-function score = fitness_routing(route, coords)
+function score = fitness_routing(route, coords, traffic)
 
 n = size(coords,1);
 
-% Round to nearest integer node index
+% Round to integer
 route = round(route);
 
-% Force start and end nodes
-route(1) = 1;     % source
-route(end) = 6;   % destination
+% Clamp values (extra safety)
+route(route < 1) = 1;
+route(route > n) = n;
+
+% Remove duplicates
+route = unique(route, 'stable');
+
+% Ensure start and end nodes
+route(1) = 1;
+route(end) = 6;
 
 maxDist = 40;
 
@@ -28,7 +35,9 @@ for i = 1:length(route)-1
     % Compute distance
     d = norm(coords(nodeA,:) - coords(nodeB,:));
 
-    totalCost = totalCost + d;
+    % Traffic-aware cost
+    trafficWeight = (traffic(nodeA) + traffic(nodeB)) / 2;
+    totalCost = totalCost + d * trafficWeight;
 
     % Connectivity constraint
     if d > maxDist
@@ -37,9 +46,10 @@ for i = 1:length(route)-1
 end
 
 % Penalize repeated nodes (bad routing)
-if length(unique(route)) < length(route)
+if length(route) < 3
     penalty = penalty + 500;
 end
 
 score = totalCost + penalty;
+
 end

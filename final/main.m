@@ -26,8 +26,9 @@ options = gaoptimset(...
 %% Run Genetic Algorithm
 % Calls custom fitness function to evaluate solutions
 coords = rand(nNodes, 2) * 100;   % fixed node positions
+traffic = randi([1 5], nNodes, 1);
 
-fitnessFcn = @(x) fitness_routing(x, coords);
+fitnessFcn = @(x) fitness_routing(x, coords, traffic);
 [x_best, fval] = ga(fitnessFcn, nvars, [], [], [], [], ...
     ones(1,nvars), nNodes*ones(1,nvars), [], options);
 
