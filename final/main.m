@@ -12,8 +12,8 @@ if ~exist(outputDir, 'dir')
 end
 
 %% Problem Parameters
-nNodes = 20;                % Number of network nodes
-routeLength = 5;            % max nodes in route
+nNodes = 10;                % Number of network nodes
+routeLength = 8;            % max nodes in route
 nvars = routeLength;        % decision variables = route nodes
 
 %% Genetic Algorithm Configuration

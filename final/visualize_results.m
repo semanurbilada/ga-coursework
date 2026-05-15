@@ -1,7 +1,5 @@
 function visualize_results(x_best, fval, nNodes, outputDir, coords)
 
-coords = rand(nNodes, 2) * 100;  % same coords should be used!
-
 route = round(x_best);
 route(1) = 1;
 route(end) = 6;
