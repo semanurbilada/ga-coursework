@@ -1,6 +1,7 @@
 function visualize_results(x_best, fval, nNodes, outputDir, coords)
 
 route = round(x_best);
+route = route([true diff(route)~=0]); % remove repeats
 route(1) = 1;
 route(end) = 6;
 

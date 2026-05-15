@@ -1,4 +1,4 @@
-function score = fitness_routing(route, coords, traffic)
+function score = fitness_routing(route, coords, traffic, adjMatrix, capacityMatrix)
 
 n = size(coords,1);
 
@@ -8,15 +8,12 @@ route = round(route);
 % Clamp values (extra safety)
 route(route < 1) = 1;
 route(route > n) = n;
+% remove only consecutive duplicates
+route = route([true diff(route)~=0]);
 
-% Remove duplicates
-route = unique(route, 'stable');
-
-% Ensure start and end nodes
+% Force start & end
 route(1) = 1;
 route(end) = 6;
-
-maxDist = 40;
 
 totalCost = 0;
 penalty = 0;
@@ -26,10 +23,9 @@ for i = 1:length(route)-1
     nodeA = route(i);
     nodeB = route(i+1);
 
-    % Prevent invalid indices
-    if nodeA < 1 || nodeA > n || nodeB < 1 || nodeB > n
-        penalty = penalty + 1000;
-        continue;
+    % Check connectivity using adjacency matrix
+    if adjMatrix(nodeA, nodeB) == 0
+        penalty = penalty + 150;
     end
 
     % Compute distance
@@ -37,15 +33,18 @@ for i = 1:length(route)-1
 
     % Traffic-aware cost
     trafficWeight = (traffic(nodeA) + traffic(nodeB)) / 2;
-    totalCost = totalCost + d * trafficWeight;
 
-    % Connectivity constraint
-    if d > maxDist
-        penalty = penalty + 200;
+    % Capacity constraint
+    capacity = capacityMatrix(nodeA, nodeB);
+    
+    if capacity < trafficWeight
+        penalty = penalty + 200;  % congestion penalty
     end
+
+    totalCost = totalCost + d * trafficWeight;
 end
 
-% Penalize repeated nodes (bad routing)
+% Penalize short route
 if length(route) < 3
     penalty = penalty + 500;
 end

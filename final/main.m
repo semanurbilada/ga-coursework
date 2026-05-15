@@ -26,9 +26,28 @@ options = gaoptimset(...
 %% Run Genetic Algorithm
 % Calls custom fitness function to evaluate solutions
 coords = rand(nNodes, 2) * 100;   % fixed node positions
+
+% Adjacency matrix (connectivity graph)
+adjMatrix = zeros(nNodes);
+maxDist = 40;
+
+for i = 1:nNodes
+    for j = 1:nNodes
+        if i ~= j
+            d = norm(coords(i,:) - coords(j,:));
+            if d <= maxDist
+                adjMatrix(i,j) = 1;
+            end
+        end
+    end
+end
+
+% Link capacity matrix (random capacities)
+capacityMatrix = randi([1 10], nNodes, nNodes);
+
 traffic = randi([1 5], nNodes, 1);
 
-fitnessFcn = @(x) fitness_routing(x, coords, traffic);
+fitnessFcn = @(x) fitness_routing(x, coords, traffic, adjMatrix, capacityMatrix);
 [x_best, fval] = ga(fitnessFcn, nvars, [], [], [], [], ...
     ones(1,nvars), nNodes*ones(1,nvars), [], options);
 
