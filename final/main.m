@@ -11,6 +11,17 @@ if ~exist(outputDir, 'dir')
     mkdir(outputDir);
 end
 
+%% Generate unique experiment index
+existingLogs = dir(fullfile(outputDir, 'run_log_*.txt'));
+
+runIndex = length(existingLogs) + 1;
+
+%% Start logging command window output
+logFile = fullfile(outputDir, ...
+    sprintf('run_log_%d.txt', runIndex));
+
+diary(logFile);
+
 %% Problem Parameters
 nNodes = 10;                % Number of network nodes
 routeLength = 8;            % max nodes in route
@@ -22,6 +33,16 @@ options = gaoptimset(...
     'Generations', 200, ...     % Number of iterations
     'Display', 'iter', ...      % Show progress in command window
     'PlotFcn', @gaplotbestf);   % Plot best fitness per generation
+
+fprintf('====================================\n');
+fprintf(' Computer Network Optimization Run\n');
+fprintf('====================================\n');
+fprintf('Run Index      : %d\n', runIndex);
+fprintf('Number of Nodes: %d\n', nNodes);
+fprintf('Population Size: %d\n', 50);
+fprintf('Generations    : %d\n', 200);
+fprintf('Timestamp      : %s\n', datestr(now));
+fprintf('====================================\n');
 
 %% Run Genetic Algorithm
 % Calls custom fitness function to evaluate solutions
@@ -55,10 +76,18 @@ fitnessFcn = @(x) fitness_routing(x, coords, traffic, adjMatrix, capacityMatrix)
 figure(1);
 title('GA Convergence Plot - Best Fitness per Generation');
 
-fileName = sprintf('convergence_plot_%dnodes.png', nNodes);
+% Generate unique filename
+baseName = sprintf('convergence_plot_%dnodes', nNodes);
+existingFiles = dir(fullfile(outputDir, [baseName '*.png']));
+fileIndex = length(existingFiles) + 1;
+fileName = sprintf('%s-%d.png', baseName, fileIndex);
+
 exportgraphics(gcf, ...
     fullfile(outputDir, fileName), ...
     'Resolution', 300);
 
 %% Visualize results and print outputs
 visualize_results(x_best, fval, nNodes, outputDir, coords);
+
+% Stop logging
+diary off;

@@ -25,7 +25,10 @@ title('Routing Optimization (GA)');
 grid on;
 
 % save
-fileName = sprintf('routing_%dnodes.png', nNodes);
+baseName = sprintf('routing_%dnodes', nNodes);
+existingFiles = dir(fullfile(outputDir, [baseName '*.png']));
+fileIndex = length(existingFiles) + 1;
+fileName = sprintf('%s-%d.png', baseName, fileIndex);
 exportgraphics(gcf, fullfile(outputDir, fileName), 'Resolution', 300);
 
 fprintf('\nOptimal Route:\n');
