@@ -1,0 +1,88 @@
+====================================
+ Computer Network Optimization Run
+====================================
+Run Timestamp  : 2026-05-17_15-54-42
+Number of Nodes: 10
+Population Size: 50
+Generations    : 200
+Timestamp      : 17-May-2026 15:54:42
+====================================
+
+Single objective optimization:
+8 Variables
+
+Options:
+CreationFcn:       @gacreationuniform
+CrossoverFcn:      @crossoverscattered
+SelectionFcn:      @selectionstochunif
+MutationFcn:       @mutationadaptfeasible
+
+                                  Best           Mean      Stall
+Generation      Func-count        f(x)           f(x)    Generations
+    1              100             500            1491        0
+    2              147           341.2            1370        0
+    3              194           341.2            1274        1
+    4              241           254.4            1098        0
+    5              288           239.6            1032        0
+    6              335           239.6           867.8        1
+    7              382           239.6           806.1        2
+    8              429           239.6           692.4        3
+    9              476           239.6           541.2        4
+   10              523           239.6           411.8        5
+   11              570           239.6           333.4        6
+   12              617           239.6           316.1        7
+   13              664           239.6           301.6        8
+   14              711           239.6           286.7        9
+   15              758           239.6             276       10
+   16              805           239.6           251.9       11
+   17              852           239.6           247.3       12
+   18              899           239.6           247.3       13
+   19              946           239.6           247.3       14
+   20              993           239.6           247.3       15
+   21             1040           239.6           239.6       16
+   22             1087           239.6           239.6       17
+   23             1134           239.6           239.6       18
+   24             1181           239.6           239.6       19
+   25             1228           239.6           239.6       20
+   26             1275           239.6           239.6       21
+   27             1322           239.6           239.6       22
+   28             1369           239.6           239.6       23
+   29             1416           239.6           239.6       24
+   30             1463           239.6           239.6       25
+
+                                  Best           Mean      Stall
+Generation      Func-count        f(x)           f(x)    Generations
+   31             1510           239.6           239.6       26
+   32             1557           239.6           239.6       27
+   33             1604           239.6           239.6       28
+   34             1651           239.6           239.6       29
+   35             1698           239.6           239.6       30
+   36             1745           239.6           239.6       31
+   37             1792           239.6           239.6       32
+   38             1839           239.6           239.6       33
+   39             1886           239.6           239.6       34
+   40             1933           239.6           239.6       35
+   41             1980           239.6           239.6       36
+   42             2027           239.6           239.6       37
+   43             2074           239.6           239.6       38
+   44             2121           239.6           239.6       39
+   45             2168           239.6           239.6       40
+   46             2215           239.6           239.6       41
+   47             2262           239.6           239.6       42
+   48             2309           239.6           239.6       43
+   49             2356           239.6           239.6       44
+   50             2403           239.6           239.6       45
+   51             2450           239.6           239.6       46
+   52             2497           239.6           239.6       47
+   53             2544           239.6           239.6       48
+   54             2591           239.6           239.6       49
+   55             2638           239.6           239.6       50
+ga stopped because the average change in the fitness value is less than options.FunctionTolerance.
+[Warning: UI components will not be included in the output.] 
+[Warning: Exported image displays axes toolbar. To remove axes toolbar from
+image, export again.] 
+
+Optimal Route:
+     1     8     4     6
+
+Total Cost: 239.62
