@@ -1,11 +1,23 @@
-# GA Coursework – Genetic Algorithms Projects (MATLAB)
+# 🚀 GA Coursework – Genetic Algorithms Projects (MATLAB)
 
-Coursework for the **Genetic Algorithms** course including both **midterm** and **final** projects implemented in MATLAB.
+## 🧠 GA-Based Network Routing Optimization Model
 
-This repository demonstrates how genetic algorithms can be applied to:
+**Objective:** Find the optimal routing path from **Node 1 → Node 6** that minimizes communication cost under realistic network constraints.
+
+> ❗ Not just shortest path → ✅ *best feasible path*
+
+### 🔥 Core Idea
+- Passing through high-traffic nodes → expensive  
+- Passing through low-traffic nodes → cheaper  
+
+---
+
+This repository contains coursework for the **Genetic Algorithms** course, covering both **midterm and final projects** implemented in MATLAB.
+
+It demonstrates:
 - Solution representation (Gray Code)
 - Custom fitness function design
-- Real-world optimization problems
+- Real-world optimization using GA
 
 ---
 
@@ -14,22 +26,25 @@ This repository demonstrates how genetic algorithms can be applied to:
 ### 🔹 Midterm Project
 Focuses on fundamental GA concepts:
 - Gray Code representation
-- Basic and customized fitness functions
-- MATLAB-based implementation and testing
+- Custom fitness function design
+- MATLAB-based implementation
 
 ---
 
 ### 🔹 Final Project  
-**Computer Network Topology Optimization using Genetic Algorithms**
+**Computer Network Routing Optimization using Genetic Algorithms**
 
-Main question:
-> Where should computers be physically placed to minimize communication cost while maintaining connectivity?
+Main idea:
+> The goal is not where nodes are located, but how data should be intelligently routed between them.
+
 
 Key features:
-- Traffic-aware fitness function
-- Connectivity and node separation constraints
-- Scalable design (10, 20, 30 nodes)
-- Visualization of convergence, topology and distance distribution
+- GA-based routing optimization
+- Traffic-aware communication cost
+- Adjacency matrix (connectivity constraints)
+- Capacity matrix (link limitations)
+- Multi-factor fitness evaluation
+- Convergence analysis and visualization
 
 ---
 
@@ -47,7 +62,7 @@ ga-coursework/
 │
 ├── final/
 │   ├── main.m
-│   ├── fitness_network.m
+│   ├── fitness_routing.m
 │   └── visualize_results.m
 │
 ├── experiments/
@@ -58,11 +73,8 @@ ga-coursework/
 │
 ├── outputs/
 │   ├── convergence_plot_10nodes.png
-│   ├── convergence_plot_20nodes.png
-│   ├── convergence_plot_30nodes.png
-│   ├── network_topology_10nodes.png
-│   ├── network_topology_20nodes.png
-│   └── network_topology_30nodes.png
+│   ├── fitness_simple.png
+│   └── routing_10nodes.png
 │
 ├── .gitignore
 └── README.md
@@ -72,39 +84,37 @@ ga-coursework/
 
 ## 📊 Results Summary
 
-| Nodes | Behavior |
-|------|----------|
-| 10   | ✅ Compact and efficient topology |
-| 20   | ⚠️ Partially stretched network |
-| 30   | ❌ Connectivity violations increase |
+| Feature | Result |
+|--------|--------|
+| Convergence | ✅ Fast and stable |
+| Routing | ✅ Multi-hop optimization |
+| Constraints | ✅ Connectivity + capacity respected |
+| Behavior | ✅ Network-aware decisions |
 
 🔍 Key Insight:
-> A **single-gateway topology becomes insufficient** for larger networks, highlighting the need for more advanced structures such as multi-cluster or multi-gateway designs.
+> Adding traffic, adjacency and capacity transforms simple routing into realistic network optimization.
 
 ---
 
 ## 📈 Example Outputs
 
-### ✅ Optimized Network Topology (20 Nodes)
-![Network Topology](outputs/network_topology_20nodes.png)
+### ✅ Optimized Routing Path
+![](outputs/routing_10nodes.png)
 
 ### ✅ GA Convergence Behavior
-![Convergence Plot](outputs/convergence_plot_20nodes.png)
+![](outputs/convergence_plot_10nodes.png)
 
-The project generates:
-- GA convergence plots  
-- Optimized network topology graphs  
-- Distance distribution histograms  
-
-All outputs are available in the **[/outputs](https://github.com/semanurbilada/ga-coursework/tree/main/outputs)** directory.
+Generated outputs include:
+- GA convergence plots
+- Optimized routing paths
 
 ---
 
 ## 🧠 Key Contribution
 
-- Scalable GA-based optimization model
-- Integration of network-aware fitness function
-- Analysis of limitations in large-scale networks
+- Constraint-based GA routing model
+- Integration of traffic, connectivity and capacity
+- Demonstration of GA solving real-world network problems
 
 ---
 
@@ -117,17 +127,16 @@ All outputs are available in the **[/outputs](https://github.com/semanurbilada/g
 
 ## ✅ Summary
 
-This repository covers the full progression from fundamental genetic algorithm concepts to real-world network optimization problems, demonstrating both the effectiveness and limitations of GA-based approaches.
+This repository shows the progression from basic GA concepts to a realistic network routing optimization model. The final system demonstrates how genetic algorithms can solve constraint-based decision problems efficiently.
 
 ---
 
-## Citation
-
+## 📌 Citation
 If you use ga-coursework in your research, please cite:
 
 ```bibtex
 @software{ga-coursework2026,
-  title   = {GA Coursework: Genetic Algorithm Concepts and Network Topology Optimization in MATLAB},
+  title   = {GA Coursework: Genetic Algorithm-Based Network Routing Optimization in MATLAB},
   author  = {Semanur Bilada},
   year    = {2026},
   url     = {https://github.com/semanurbilada/ga-coursework}

@@ -19,7 +19,6 @@ totalCost = 0;
 penalty = 0;
 
 for i = 1:length(route)-1
-    
     nodeA = route(i);
     nodeB = route(i+1);
 
