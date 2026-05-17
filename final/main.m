@@ -11,14 +11,10 @@ if ~exist(outputDir, 'dir')
     mkdir(outputDir);
 end
 
-%% Generate unique experiment index
-existingLogs = dir(fullfile(outputDir, 'run_log_*.txt'));
-
-runIndex = length(existingLogs) + 1;
-
-%% Start logging command window output
+%% Generate unique timestamp-based log filename
+timestamp = datestr(now, 'yyyy-mm-dd_HH-MM-SS');
 logFile = fullfile(outputDir, ...
-    sprintf('run_log_%d.txt', runIndex));
+    sprintf('run_log_%s.txt', timestamp));
 
 diary(logFile);
 
@@ -37,7 +33,8 @@ options = gaoptimset(...
 fprintf('====================================\n');
 fprintf(' Computer Network Optimization Run\n');
 fprintf('====================================\n');
-fprintf('Run Index      : %d\n', runIndex);
+% fprintf('Run Index      : %d\n', runIndex);
+fprintf('Run Timestamp  : %s\n', timestamp);
 fprintf('Number of Nodes: %d\n', nNodes);
 fprintf('Population Size: %d\n', 50);
 fprintf('Generations    : %d\n', 200);
@@ -77,17 +74,15 @@ figure(1);
 title('GA Convergence Plot - Best Fitness per Generation');
 
 % Generate unique filename
-baseName = sprintf('convergence_plot_%dnodes', nNodes);
-existingFiles = dir(fullfile(outputDir, [baseName '*.png']));
-fileIndex = length(existingFiles) + 1;
-fileName = sprintf('%s-%d.png', baseName, fileIndex);
+fileName = sprintf('convergence_plot_%dnodes_%s.png', ...
+    nNodes, timestamp);
 
 exportgraphics(gcf, ...
     fullfile(outputDir, fileName), ...
     'Resolution', 300);
 
 %% Visualize results and print outputs
-visualize_results(x_best, fval, nNodes, outputDir, coords);
+visualize_results(x_best, fval, nNodes, outputDir, coords, timestamp);
 
 % Stop logging
 diary off;

@@ -1,4 +1,4 @@
-function visualize_results(x_best, fval, nNodes, outputDir, coords)
+function visualize_results(x_best, fval, nNodes, outputDir, coords, timestamp)
 
 route = round(x_best);
 route = route([true diff(route)~=0]); % remove repeats
@@ -25,10 +25,9 @@ title('Routing Optimization (GA)');
 grid on;
 
 % save
-baseName = sprintf('routing_%dnodes', nNodes);
-existingFiles = dir(fullfile(outputDir, [baseName '*.png']));
-fileIndex = length(existingFiles) + 1;
-fileName = sprintf('%s-%d.png', baseName, fileIndex);
+fileName = sprintf('routing_%dnodes_%s.png', ...
+    nNodes, timestamp);
+    
 exportgraphics(gcf, fullfile(outputDir, fileName), 'Resolution', 300);
 
 fprintf('\nOptimal Route:\n');
