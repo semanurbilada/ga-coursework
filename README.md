@@ -99,10 +99,10 @@ ga-coursework/
 ## 📈 Example Outputs
 
 ### ✅ Optimized Routing Path
-![](outputs/routing_10nodes.png)
+![](outputs/before-lookup-table/routing_10nodes.png)
 
 ### ✅ GA Convergence Behavior
-![](outputs/convergence_plot_10nodes.png)
+![](outputs/before-lookup-table/convergence_plot_10nodes.png)
 
 Generated outputs include:
 - GA convergence plots
