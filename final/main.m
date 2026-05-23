@@ -60,10 +60,26 @@ for i = 1:nNodes
     end
 end
 
+fprintf('\n========== ADJACENCY MATRIX ==========\n');
+disp(adjMatrix);
+
 % Link capacity matrix (random capacities)
 capacityMatrix = randi([1 10], nNodes, nNodes);
 
+fprintf('\n========== CAPACITY MATRIX ==========\n');
+disp(capacityMatrix);
+
 traffic = randi([1 5], nNodes, 1);
+
+fprintf('\n========== NODE LOOKUP TABLE ==========\n');
+fprintf('Node\tX\tY\tTraffic\n');
+
+for i = 1:nNodes
+    fprintf('%d\t%.2f\t%.2f\t%d\n', ...
+        i, coords(i,1), coords(i,2), traffic(i));
+end
+fprintf('=======================================\n\n');
+
 
 fitnessFcn = @(x) fitness_routing(x, coords, traffic, adjMatrix, capacityMatrix);
 [x_best, fval] = ga(fitnessFcn, nvars, [], [], [], [], ...
@@ -82,7 +98,13 @@ exportgraphics(gcf, ...
     'Resolution', 300);
 
 %% Visualize results and print outputs
-visualize_results(x_best, fval, nNodes, outputDir, coords, timestamp);
+visualize_results(x_best, fval, nNodes, outputDir, coords, timestamp, traffic, capacityMatrix);
+
+nodeTable = table((1:nNodes)', coords(:,1), coords(:,2), traffic, ...
+    'VariableNames', {'Node','X','Y','Traffic'});
+
+writetable(nodeTable, fullfile(outputDir, ...
+    sprintf('node_table_%s.csv', timestamp)));
 
 % Stop logging
 diary off;
