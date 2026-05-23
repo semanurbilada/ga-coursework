@@ -1,4 +1,4 @@
-# 🚀 GA Coursework – Genetic Algorithms Projects (MATLAB)
+# GA Coursework – Genetic Algorithms Projects (MATLAB)
 
 ## 🧠 GA-Based Network Routing Optimization Model
 
@@ -107,6 +107,37 @@ ga-coursework/
 Generated outputs include:
 - GA convergence plots
 - Optimized routing paths
+
+---
+
+### ✅ Network Lookup Table (Explainability)
+
+To improve interpretability, the model provides a detailed lookup table including:
+- Node coordinates and traffic levels  
+- Adjacency matrix (connectivity)  
+- Capacity matrix (link limits)  
+
+```
+========== NODE LOOKUP TABLE ==========
+Node	  X	       Y	      Traffic
+1	      63.76	   87.18	  4
+2	      68.02	   16.22	  4
+3	      43.84	   78.22	  2
+4	      61.55	   50.31	  2
+5	      8.23	   37.16	  5
+6	      26.95	   4.20	    4
+7	      8.99	   71.15	  1
+8	      78.90	   34.93	  1
+9	      75.24	   3.68	    2
+10      72.16	   64.68	  2
+=======================================
+```
+
+This allows the routing decision to be fully explained instead of acting as a black-box model. [(Click to See More Outputs!)](https://github.com/semanurbilada/ga-coursework/tree/main/outputs)
+
+For example, nodes with lower traffic and sufficient link capacity are preferred by the genetic algorithm when constructing optimal routes.
+
+> 🔍 The lookup table makes the model transparent by showing how traffic, connectivity and capacity influence routing decisions.
 
 ---
 
