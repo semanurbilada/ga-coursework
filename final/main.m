@@ -62,10 +62,9 @@ end
 
 fprintf('\n========== ADJACENCY MATRIX ==========\n');
 disp(adjMatrix);
-
-% Link capacity matrix (random capacities)
 capacityMatrix = randi([1 10], nNodes, nNodes);
 
+% Link capacity matrix (random capacities)
 fprintf('\n========== CAPACITY MATRIX ==========\n');
 disp(capacityMatrix);
 
@@ -102,9 +101,6 @@ visualize_results(x_best, fval, nNodes, outputDir, coords, timestamp, traffic, c
 
 nodeTable = table((1:nNodes)', coords(:,1), coords(:,2), traffic, ...
     'VariableNames', {'Node','X','Y','Traffic'});
-
-writetable(nodeTable, fullfile(outputDir, ...
-    sprintf('node_table_%s.csv', timestamp)));
 
 % Stop logging
 diary off;
